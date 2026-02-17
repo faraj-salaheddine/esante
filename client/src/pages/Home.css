@@ -1,0 +1,16 @@
+.home-wrapper { font-family: 'Poppins', sans-serif; }
+.home-hero {
+  height: 80vh;
+  background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+}
+.hero-text h1 { font-size: 4rem; color: #1e3a8a; line-height: 1.1; }
+.hero-text h1 span { color: #3b82f6; }
+.hero-text p { font-size: 1.2rem; color: #64748b; margin: 20px 0 40px; max-width: 500px; }
+.hero-actions { display: flex; gap: 20px; }
+.btn-main { background: #3b82f6; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
+.btn-alt { border: 2px solid #3b82f6; color: #3b82f6; padding: 13px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; }
+.home-stats { display: flex; justify-content: space-around; padding: 50px 10%; background: white; margin-top: -50px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+.stat-item h3 { font-size: 2.5rem; color: #1e3a8a; margin-bottom: 5px; }

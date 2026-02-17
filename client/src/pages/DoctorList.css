@@ -1,0 +1,84 @@
+.doctor-list-page {
+  padding: 40px 10%;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* --- Section Recherche --- */
+.search-container {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.search-container h1 { font-size: 2.5rem; color: #1e3a8a; margin-bottom: 10px; }
+.search-container p { color: #64748b; margin-bottom: 25px; }
+
+.search-bar {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+}
+
+.search-icon { margin-right: 15px; font-size: 1.2rem; }
+.search-bar input {
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+/* --- Grille et Cartes --- */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.doctor-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  border: 1px solid #f1f5f9;
+  transition: 0.3s ease;
+}
+
+.doctor-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+
+.card-header { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; }
+.doctor-avatar { font-size: 2.5rem; background: #eff6ff; padding: 10px; border-radius: 15px; }
+
+.doctor-info h3 { font-size: 1.2rem; color: #1e293b; margin-bottom: 5px; }
+.specialty-badge {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-body p { font-size: 0.95rem; color: #64748b; margin: 8px 0; }
+
+.btn-book {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-book:hover { background: #2563eb; }
