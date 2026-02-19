@@ -10,7 +10,7 @@ export default function Home() {
           <h1>Votre santé, <br /><span>Notre priorité.</span></h1>
           <p>Prenez rendez-vous avec les meilleurs spécialistes au Maroc en quelques clics.</p>
           <div className="hero-actions">
-            <Link to="/register" className="btn-main">Commencer</Link>
+            <Link to="/login" className="btn-main">Commencer</Link>
             <Link to="/doctors" className="btn-alt">Voir les médecins</Link>
           </div>
         </div>

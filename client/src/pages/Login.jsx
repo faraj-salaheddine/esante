@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import './Login.css';
+import { useNavigate } from 'react-router-dom';
+import './Login.css'; // Assure-toi d'avoir ce fichier pour le style
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -12,23 +12,44 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      
+      // Sauvegarde des données (C'est ce qui règle le undefined)
       localStorage.setItem('token', res.data.token);
-      navigate('/doctors');
+      localStorage.setItem('role', res.data.role);
+      localStorage.setItem('userId', res.data.userId);
+
+      // Redirection dynamique
+      if (res.data.role === 'patient') {
+        navigate('/dashboard');
+      } else {
+        navigate('/doctors');
+      }
     } catch (err) {
-      alert("Erreur de connexion");
+      alert(err.response?.data?.message || "Erreur de connexion au serveur");
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>Bon retour !</h2>
+        <h2>Connexion</h2>
         <form onSubmit={handleLogin}>
-          <input type="email" placeholder="Email" onChange={e => setEmail(e.target.value)} required />
-          <input type="password" placeholder="Mot de passe" onChange={e => setPassword(e.target.value)} required />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
+          <input 
+            type="password" 
+            placeholder="Mot de passe" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
           <button type="submit">Se connecter</button>
         </form>
-        <p>Pas de compte ? <Link to="/register">Inscrivez-vous</Link></p>
       </div>
     </div>
   );
