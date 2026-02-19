@@ -4,12 +4,13 @@ exports.getAllMedecins = async (req, res) => {
   try {
     const medecins = await Medecin.findAll({
       include: [
-        { model: User, attributes: ['nom'] },
-        { model: Specialite, attributes: ['nom_specialite'] }
+        { model: User, attributes: ['nom', 'email'] },
+        { model: Specialite, attributes: ['nom'] }
       ]
     });
     res.json(medecins);
   } catch (error) {
-    res.status(500).json({ message: "Erreur serveur", error: error.message });
+    console.error("Erreur serveur:", error);
+    res.status(500).json({ error: error.message });
   }
 };

@@ -1,16 +1,315 @@
-.home-wrapper { font-family: 'Poppins', sans-serif; }
-.home-hero {
-  height: 80vh;
-  background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+/* --- Variables et Reset --- */
+:root {
+  --primary-blue: #0056d2;
+  --light-blue: #eef5ff;
+  --dark-text: #1e293b;
+  --gray-text: #64748b;
+}
+
+.home-wrapper {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8fbff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background: white;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--primary-blue);
   display: flex;
   align-items: center;
-  padding: 0 10%;
+  gap: 10px;
 }
-.hero-text h1 { font-size: 4rem; color: #1e3a8a; line-height: 1.1; }
-.hero-text h1 span { color: #3b82f6; }
-.hero-text p { font-size: 1.2rem; color: #64748b; margin: 20px 0 40px; max-width: 500px; }
-.hero-actions { display: flex; gap: 20px; }
-.btn-main { background: #3b82f6; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); }
-.btn-alt { border: 2px solid #3b82f6; color: #3b82f6; padding: 13px 35px; border-radius: 50px; text-decoration: none; font-weight: 600; }
-.home-stats { display: flex; justify-content: space-around; padding: 50px 10%; background: white; margin-top: -50px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-.stat-item h3 { font-size: 2.5rem; color: #1e3a8a; margin-bottom: 5px; }
+
+.nav-menu {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--dark-text);
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* --- Boutons --- */
+.btn-text {
+  text-decoration: none;
+  color: var(--dark-text);
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0045a8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 86, 210, 0.3);
+}
+
+.btn-dark {
+  background-color: #0f172a;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-dark:hover { background-color: #1e293b; }
+
+.large { padding: 14px 30px; font-size: 16px; }
+
+/* --- Section Héro --- */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 5%;
+  max-width: 1300px;
+  margin: 0 auto;
+  gap: 50px;
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #e11d48;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.badge-line {
+  width: 30px;
+  height: 2px;
+  background-color: #e11d48;
+}
+
+.hero-title {
+  font-size: 55px;
+  line-height: 1.1;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.text-blue {
+  color: var(--primary-blue);
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--gray-text);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.hero-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hero-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.check-icon {
+  background-color: #dcfce7;
+  color: #16a34a;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* --- Visuels (Droite) avec le cercle --- */
+.hero-visuals {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Le grand cercle bleu derrière l'image */
+.image-circle-bg {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border: 4px solid var(--primary-blue);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-45%, -55%);
+  z-index: 1;
+}
+
+/* Le conteneur de l'image */
+.image-wrapper {
+  position: relative;
+  z-index: 2;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  border: 8px solid white;
+}
+
+.main-image {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* --- Badges Flottants --- */
+.floating-badge {
+  position: absolute;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 3;
+  animation: float 4s ease-in-out infinite;
+}
+
+.badge-top-right {
+  top: 10%;
+  right: -20px;
+}
+
+.badge-bottom-left {
+  bottom: 10%;
+  left: -40px;
+  animation-delay: 2s; /* Désynchronise l'animation */
+}
+
+.badge-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.badge-icon.red { background-color: #ffe4e6; }
+.badge-icon.blue { background-color: var(--light-blue); }
+
+.floating-badge strong {
+  display: block;
+  font-size: 20px;
+  color: var(--dark-text);
+  line-height: 1.2;
+}
+
+.floating-badge span {
+  font-size: 12px;
+  color: var(--gray-text);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* --- Barre de Statistiques (Bas) --- */
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  padding: 30px 5%;
+  margin: 40px 5% 0;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  color: var(--primary-blue);
+  font-size: 16px;
+}
+
+.stat-icon {
+  background-color: var(--light-blue);
+  padding: 10px;
+  border-radius: 50%;
+}
+
+/* --- Responsive (Mobile) --- */
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-list { justify-content: center; }
+  .hero-buttons { justify-content: center; }
+  .floating-badge { display: none; /* Caché sur petit écran pour plus de clarté */ }
+  .image-circle-bg { width: 300px; height: 300px; }
+  .nav-menu { display: none; }
+}

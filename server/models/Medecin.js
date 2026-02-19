@@ -2,11 +2,14 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Medecin = sequelize.define('Medecin', {
-  user_id: { type: DataTypes.INTEGER },
-  specialite_id: { type: DataTypes.INTEGER },
-  adresse: { type: DataTypes.TEXT },
-  telephone: { type: DataTypes.STRING },
-  biographie: { type: DataTypes.TEXT }
-}, { tableName: 'medecins', timestamps: false });
+  adresse: { 
+    type: DataTypes.STRING 
+  },
+  telephone: { 
+    type: DataTypes.STRING 
+  }
+}, {
+  timestamps: false // Empêche MySQL de bloquer sur createdAt/updatedAt
+});
 
 module.exports = Medecin;
