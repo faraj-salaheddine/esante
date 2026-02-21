@@ -2,85 +2,121 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
-// Importation de l'image selon les standards React
+// =============================================
+// IMPORTATION DE TES IMAGES
+// =============================================
 import heroImg from '../assets/home-hero.jpg';
-
+import hopitalImg from '../assets/ibnsina.jpg'; 
+import machineImg from '../assets/machine.jpeg'; // ⚠️ Remplacé par .jpeg
+import ministereLogo from '../assets/ministre de sante.jpg'; // ⚠️ Sans espaces
 export default function Home() {
   return (
-    <div className="home-wrapper">
+    <div className="home-container">
       
-
-      {/* Section Héro (Le contenu principal) */}
-      <main className="hero-container">
-        
-        {/* Colonne Gauche : Texte */}
-        <div className="hero-content">
-          <div className="hero-badge">
-            <span className="badge-line"></span> PLATEFORME E-SANTÉ MAROC
-          </div>
-          <h1 className="hero-title">
-            Votre Santé, <br />
-            <span className="text-blue">Plus Proche</span> De Vous
-          </h1>
-          <p className="hero-desc">
-            Une plateforme solidaire et innovante pour faciliter l'accès aux soins, la prise de rendez-vous et le suivi médical de tous les citoyens.
-          </p>
+      {/* ================= HERO SECTION (Inspiré de ta maquette) ================= */}
+      <section className="hero-modern">
+        <div className="wrapper hero-content">
           
-          <ul className="hero-list">
-            <li><span className="check-icon">✔</span> Médecins certifiés</li>
-            <li><span className="check-icon">✔</span> Prise de RDV rapide</li>
-            <li><span className="check-icon">✔</span> Dossier médical sécurisé</li>
-          </ul>
+          {/* Colonne Gauche : Textes */}
+          <div className="hero-text">
+            <div className="hero-subtitle">Plateforme E-Santé Maroc</div>
+            <h1>Votre Santé, <br/><span>Plus Proche De Vous</span></h1>
+            <p>
+              Une plateforme solidaire et innovante pour faciliter l'accès aux soins, 
+              la prise de rendez-vous et le suivi médical de tous les citoyens.
+            </p>
+            
+            <div className="hero-checks">
+              <span><span className="check-icon">✔</span> Médecins certifiés</span>
+              <span><span className="check-icon">✔</span> Prise de RDV rapide</span>
+              <span><span className="check-icon">✔</span> Dossier médical sécurisé</span>
+            </div>
 
-          <div className="hero-buttons">
-            <Link to="/register" className="btn-primary large">Commencer ➔</Link>
-            <Link to="/doctors" className="btn-dark large">Nos Médecins ➔</Link>
-          </div>
-        </div>
-
-        {/* Colonne Droite : Image avec décorations */}
-        <div className="hero-visuals">
-          <div className="image-circle-bg"></div>
-          
-          <div className="image-wrapper">
-            <img src={heroImg} alt="Sa Majesté le Roi Mohammed VI au chevet des victimes" className="main-image" />
-          </div>
-
-          {/* Badges flottants style "Template Edura" */}
-          <div className="floating-badge badge-top-right">
-            <div className="badge-icon red">🏥</div>
-            <div>
-              <strong>Solidarité</strong>
-              <span>Nationale</span>
+            <div className="hero-buttons">
+              <Link to="/register" className="btn-primary-hero">Commencer ➔</Link>
+              <Link to="/doctors" className="btn-secondary-hero">Nos Médecins ➔</Link>
             </div>
           </div>
 
-          <div className="floating-badge badge-bottom-left">
-            <div className="badge-icon blue">👨‍⚕️</div>
-            <div>
-              <strong>+500</strong>
-              <span>Médecins actifs</span>
+          {/* Colonne Droite : Image et Badges */}
+          <div className="hero-image-wrapper">
+            <div className="bg-circle"></div>
+            
+            <div className="hero-image-box">
+              <img src={heroImg} alt="Initiative de solidarité" />
+            </div>
+
+            {/* Badges Flottants */}
+            <div className="floating-badge badge-top">
+              <div className="badge-icon" style={{color: '#E60000'}}>🏥</div>
+              <div className="badge-text">
+                <h4>Solidarité</h4>
+                <p>Nationale</p>
+              </div>
+            </div>
+
+            <div className="floating-badge badge-bottom">
+              <div className="badge-icon" style={{color: '#0047AB'}}>👨‍⚕️</div>
+              <div className="badge-text">
+                <h4>+500</h4>
+                <p>Médecins actifs</p>
+              </div>
             </div>
           </div>
-        </div>
 
-      </main>
-
-      {/* Barre de statistiques en bas */}
-      <section className="stats-bar">
-        <div className="stat-item">
-          <span className="stat-icon">🩺</span> +20k Consultations
-        </div>
-        <div className="stat-item">
-          <span className="stat-icon">⏱️</span> Accès 24/7
-        </div>
-        <div className="stat-item">
-          <span className="stat-icon">🔒</span> Données Sécurisées
-        </div>
-        <div className="stat-item">
-          <span className="stat-icon">🤝</span> Support Communautaire
         </div>
       </section>
+
+      {/* ================= SECTION : Infrastructures (Ibn Sina / Hôpital) ================= */}
+      <section className="nat-section">
+        <div className="wrapper split-content">
+          <div className="nat-text">
+            <h2 style={{color: '#0047AB'}}>Des infrastructures de pointe pour tous</h2>
+            <p>
+              Dans le cadre de la refonte du système national de santé, notre plateforme vous connecte aux centres hospitaliers universitaires (CHU) les plus modernes du Royaume, à l'image du nouvel Hôpital Ibn Sina. 
+            </p>
+            <p>
+              Un accès simplifié à des structures d'excellence, dotées des dernières innovations architecturales et médicales pour une prise en charge optimale.
+            </p>
+          </div>
+          <div className="nat-image">
+            <img src={hopitalImg} alt="Nouvel Hôpital Maroc" />
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION : Équipements & Technologie (Machine / m6_2) ================= */}
+      <section className="nat-section white-bg">
+        <div className="wrapper split-content reverse">
+          <div className="nat-text">
+            <h2 style={{color: '#E60000'}}>Une médecine de haute précision</h2>
+            <p>
+              E-Santé vous oriente vers des spécialistes équipés des technologies médicales de dernière génération. Blocs opératoires intelligents, imagerie de haute précision et équipements radiologiques avancés.
+            </p>
+            <p>
+              Parce que votre santé mérite la meilleure technologie, nous collaborons avec des professionnels utilisant un matériel de pointe certifié.
+            </p>
+            <Link to="/doctors" className="btn-primary-hero" style={{display: 'inline-block', marginTop: '15px'}}>
+              Trouver un spécialiste
+            </Link>
+          </div>
+          <div className="nat-image">
+            <img src={machineImg} alt="Équipement médical haute technologie" />
+          </div>
+        </div>
+      </section>
+
+      {/* ================= SECTION : Ministère de la Santé ================= */}
+      <section className="ministry-section">
+        <div className="wrapper">
+          <img src={ministereLogo} alt="Ministère de la Santé" className="ministry-logo" />
+          <h3 style={{color: '#1e293b', marginBottom: '10px'}}>Une initiative reconnue</h3>
+          <p style={{color: '#64748b', maxWidth: '600px', margin: '0 auto'}}>
+            Cette plateforme s'inscrit dans la vision globale d'amélioration des services de santé publique au Maroc, garantissant la sécurité de vos données et la qualité des soins prodigués.
+          </p>
+        </div>
+      </section>
+
     </div>
   );
 }
