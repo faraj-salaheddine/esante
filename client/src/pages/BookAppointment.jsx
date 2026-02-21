@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+// --- IMPORTATION DES ICÔNES ---
+import { FaUserMd, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCheckCircle } from 'react-icons/fa';
 import './BookAppointment.css';
 
 export default function BookAppointment() {
@@ -54,7 +56,7 @@ export default function BookAppointment() {
   };
 
   if (loading) return <h2 style={{textAlign: 'center', marginTop: '50px'}}>Chargement...</h2>;
-  if (!medecin) return <h2 style={{textAlign: 'center', marginTop: '50px', color: 'red'}}>Médecin introuvable</h2>;
+  if (!medecin) return <h2 style={{textAlign: 'center', marginTop: '50px', color: '#e11d48'}}>Médecin introuvable</h2>;
 
   return (
     <div className="booking-container">
@@ -62,13 +64,16 @@ export default function BookAppointment() {
         
         {/* Colonne Gauche */}
         <div className="doctor-summary-card">
-          <div className="doctor-summary-avatar">👨‍⚕️</div>
+          {/* Avatar Médecin pro */}
+          <div className="doctor-summary-avatar" style={{ backgroundColor: '#eff6ff', color: '#3182ce' }}>
+            <FaUserMd size={45} />
+          </div>
           <h2 className="doctor-summary-name">{medecin.User?.nom}</h2>
           <span className="doctor-summary-spec">{medecin.Specialite?.nom || "Spécialiste"}</span>
           <div className="doctor-summary-details">
-            <p>📍 {medecin.adresse}</p>
-            <p>📞 {medecin.telephone}</p>
-            <p>✉️ {medecin.User?.email}</p>
+            <p><FaMapMarkerAlt color="#3182ce" /> {medecin.adresse}</p>
+            <p><FaPhone color="#3182ce" /> {medecin.telephone}</p>
+            <p><FaEnvelope color="#3182ce" /> {medecin.User?.email}</p>
           </div>
         </div>
 
@@ -76,7 +81,10 @@ export default function BookAppointment() {
         <div className="booking-form-card">
           {isSuccess ? (
             <div className="success-booking">
-              <div className="success-icon">✅</div>
+              {/* Icône de succès pro */}
+              <div className="success-icon" style={{ color: '#16a34a', marginBottom: '15px' }}>
+                <FaCheckCircle size={70} />
+              </div>
               <h2>Rendez-vous Confirmé !</h2>
               <p>Votre rendez-vous avec le <strong>{medecin.User?.nom}</strong> est prévu pour le <strong>{date}</strong> à <strong>{time}</strong>.</p>
               <Link to="/dashboard" className="btn-return">Aller à mon tableau de bord</Link>
