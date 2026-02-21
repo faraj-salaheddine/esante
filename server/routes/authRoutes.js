@@ -2,13 +2,10 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 
-// Inscription d'un nouvel utilisateur
+// 1. Route pour l'inscription (Étape 1 et 2)
 router.post('/register', authController.register);
 
-// Vérification du code reçu par email
-router.post('/verify', authController.verifyCode);
-
-// Connexion
+// 2. Route pour la connexion
 router.post('/login', authController.login);
 
 module.exports = router;

@@ -8,21 +8,7 @@ import heroImg from '../assets/home-hero.jpg';
 export default function Home() {
   return (
     <div className="home-wrapper">
-      {/* Navigation */}
-      <nav className="navbar">
-        <div className="nav-logo">
-          <span className="logo-icon">⚕️</span> E-Santé
-        </div>
-        <div className="nav-menu">
-          <Link to="/" className="nav-link">Accueil</Link>
-          <Link to="/doctors" className="nav-link">Médecins</Link>
-          <Link to="/contact" className="nav-link">Contact</Link>
-        </div>
-        <div className="nav-actions">
-          <Link to="/login" className="btn-text">Se connecter</Link>
-          <Link to="/register" className="btn-primary">S'inscrire ➔</Link>
-        </div>
-      </nav>
+      
 
       {/* Section Héro (Le contenu principal) */}
       <main className="hero-container">

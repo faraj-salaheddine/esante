@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './DoctorList.css'; // Connexion au nouveau design !
+import { Link } from 'react-router-dom'; // ⚠️ AJOUT IMPORTANT
+import './DoctorList.css'; 
 
 export default function DoctorList() {
   const [medecins, setMedecins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // État pour la barre de recherche
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
     axios.get('http://localhost:5000/api/medecins')
@@ -21,7 +22,6 @@ export default function DoctorList() {
       });
   }, []);
 
-  // Fonction magique pour filtrer les médecins selon la recherche (par nom ou spécialité)
   const filteredMedecins = medecins.filter((medecin) => {
     const searchLower = searchTerm.toLowerCase();
     const nom = medecin.User?.nom?.toLowerCase() || "";
@@ -33,13 +33,11 @@ export default function DoctorList() {
     <div className="doctor-page-container">
       <div className="doctor-page-content">
         
-        {/* En-tête de la page */}
         <header className="doctor-header">
           <h1>Prenez rendez-vous en ligne</h1>
           <p>Trouvez le spécialiste qui vous convient parmi nos professionnels de santé</p>
         </header>
 
-        {/* Barre de recherche (L'effet pro pour le PFE) */}
         <div className="search-bar-container">
           <span className="search-icon">🔍</span>
           <input 
@@ -51,14 +49,11 @@ export default function DoctorList() {
           />
         </div>
 
-        {/* Gestion des messages de chargement et d'erreur */}
         {loading && <div className="state-message loading">Chargement des spécialistes en cours...</div>}
         {error && <div className="state-message error">⚠️ {error}</div>}
 
-        {/* Affichage de la grille des médecins */}
         {!loading && !error && (
           <div className="doctor-grid">
-            
             {filteredMedecins.length === 0 ? (
               <div className="state-message empty">
                 Aucun médecin ne correspond à votre recherche "{searchTerm}".
@@ -67,7 +62,6 @@ export default function DoctorList() {
               filteredMedecins.map((medecin) => (
                 <div key={medecin.id} className="doctor-card">
                   
-                  {/* Haut de la carte : Photo, Nom, Spécialité */}
                   <div className="doctor-profile-header">
                     <div className="doctor-avatar">👨‍⚕️</div>
                     <div>
@@ -78,30 +72,23 @@ export default function DoctorList() {
                     </div>
                   </div>
                   
-                  {/* Milieu : Coordonnées */}
                   <ul className="doctor-info-list">
-                    <li>
-                      <span className="info-icon">📍</span> 
-                      <strong>Cabinet :</strong> {medecin.adresse || "Adresse non communiquée"}
-                    </li>
-                    <li>
-                      <span className="info-icon">📞</span> 
-                      <strong>Téléphone :</strong> {medecin.telephone || "Non communiqué"}
-                    </li>
-                    <li>
-                      <span className="info-icon">✉️</span> 
-                      <strong>Email :</strong> {medecin.User?.email}
-                    </li>
+                    <li><span className="info-icon">📍</span> <strong>Cabinet :</strong> {medecin.adresse || "Adresse non communiquée"}</li>
+                    <li><span className="info-icon">📞</span> <strong>Téléphone :</strong> {medecin.telephone || "Non communiqué"}</li>
+                    <li><span className="info-icon">✉️</span> <strong>Email :</strong> {medecin.User?.email}</li>
                   </ul>
 
-                  {/* Bas : Bouton d'action */}
-                  <button className="btn-appointment">
+                  {/* ⚠️ LE BOUTON TRANSFORMÉ EN LIEN DYNAMIQUE */}
+                  <Link 
+                    to={`/book/${medecin.id}`} 
+                    className="btn-appointment" 
+                    style={{ display: 'block', textAlign: 'center', textDecoration: 'none', boxSizing: 'border-box' }}
+                  >
                     Prendre Rendez-vous
-                  </button>
+                  </Link>
                 </div>
               ))
             )}
-            
           </div>
         )}
       </div>
