@@ -1,29 +1,51 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt'); // Utilisé pour crypter les mots de passe
-const jwt = require('jsonwebtoken'); // Utilisé pour la connexion
+const Medecin = require('../models/Medecin'); // On importe le modèle Medecin
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // ==========================================
 // 1. INSCRIPTION (Register)
 // ==========================================
 exports.register = async (req, res) => {
   try {
-    const { nom, email, mot_de_passe, role } = req.body;
-    
-    // Hachage (sécurisation) du mot de passe
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(mot_de_passe, salt);
+   // console.log("Données reçues :", req.body);
 
-    // Création du compte dans MySQL
+    const { nom, email, role, specialite_id, adresse, telephone } = req.body;
+    const password_brut = req.body.password || req.body.mot_de_passe;
+
+    if (!password_brut) {
+      return res.status(400).json({ error: "Le mot de passe est obligatoire." });
+    }
+
+    // 1. Hachage du mot de passe
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password_brut, salt);
+
+    // 2. Création de l'utilisateur (on utilise 'password' comme demandé par ton modèle)
     const newUser = await User.create({
       nom,
       email,
-      mot_de_passe: hashedPassword, 
-      role: role || 'patient' // Si aucun rôle n'est donné, on met 'patient' par défaut
+      password: hashedPassword, // 🎯 Correction : Utilise 'password' pour correspondre au modèle
+      role: role || 'patient'
     });
 
-    res.status(201).json({ message: "Inscription réussie", user: newUser });
+    // 3. 👨‍⚕️ SI C'EST UN MÉDECIN : On remplit aussi la table 'Medecin'
+    if (role === 'medecin') {
+      await Medecin.create({
+        user_id: newUser.id,
+        specialite_id: specialite_id,
+        adresse: adresse,
+        telephone: telephone
+      });
+    }
+
+    res.status(201).json({ 
+      message: role === 'medecin' ? "Compte médecin créé avec succès !" : "Compte patient créé !", 
+      user: { id: newUser.id, nom: newUser.nom, email: newUser.email } 
+    });
+
   } catch (error) {
-    console.error("Erreur Register:", error);
+    console.error("Erreur détaillée Register:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -33,17 +55,16 @@ exports.register = async (req, res) => {
 // ==========================================
 exports.login = async (req, res) => {
   try {
-    const { email, mot_de_passe } = req.body;
+    const { email } = req.body;
+    const password_brut = req.body.password || req.body.mot_de_passe;
 
-    // On vérifie si l'email existe
     const user = await User.findOne({ where: { email } });
     if (!user) return res.status(404).json({ message: "Utilisateur introuvable" });
 
-    // On vérifie si le mot de passe est le bon
-    const isMatch = await bcrypt.compare(mot_de_passe, user.mot_de_passe); 
+    // On compare avec 'user.password'
+    const isMatch = await bcrypt.compare(password_brut, user.password); 
     if (!isMatch) return res.status(400).json({ message: "Mot de passe incorrect" });
 
-    // On crée le "pass" (Token) pour garder l'utilisateur connecté
     const token = jwt.sign(
       { id: user.id, role: user.role }, 
       process.env.JWT_SECRET || 'secret_temporaire_esante', 
@@ -62,24 +83,17 @@ exports.login = async (req, res) => {
 };
 
 // ==========================================
-// 3. NOUVEAU : RÉCUPÉRER LE PROFIL (Dashboard)
+// 3. RÉCUPÉRER LE PROFIL
 // ==========================================
 exports.getUserInfo = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    // On va chercher l'utilisateur, mais on bloque l'envoi du mot de passe vers React par sécurité
     const user = await User.findByPk(id, {
-      attributes: { exclude: ['mot_de_passe', 'password'] } 
+      attributes: { exclude: ['password'] } 
     });
-
-    if (!user) {
-      return res.status(404).json({ message: "Utilisateur non trouvé" });
-    }
-
+    if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
     res.json(user);
   } catch (error) {
-    console.error("Erreur getUserInfo:", error);
     res.status(500).json({ error: error.message });
   }
 };
